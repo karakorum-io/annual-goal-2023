@@ -1,0 +1,63 @@
+This go application is a simplified CRUD API for managing user entities.
+
+### 1. **main.go:**
+   - Initializes the `UserService`.
+   - Starts a background goroutine (`CleanUpInactiveUsers`) to periodically deactivate inactive users.
+   - Sets up the router (`NewRouter`) to handle API requests.
+   - Starts the HTTP server.
+
+### 2. **model.go:**
+   - Defines the `User` struct, representing a user entity with fields such as `ID`, `Username`, `Email`, `CreatedAt`, and `Active`.
+   - Provides a `NewUser` function to create a new user with a unique ID, username, and email.
+   - Defines a `GenerateID` function (placeholder) to generate a unique user ID.
+
+### 3. **logic.go:**
+   - Implements the `UserService` to handle user-related logic.
+   - Provides methods for creating, retrieving, and deactivating users.
+   - Uses a mutex (`usersLock`) to ensure thread-safe access to the user data.
+   - Implements a background goroutine (`CleanUpInactiveUsers`) to periodically deactivate users who have been inactive for a certain duration.
+
+### 4. **routes.go:**
+   - Defines the router (`NewRouter`) using the Gorilla Mux router.
+   - Specifies different HTTP handlers for CRUD operations:
+      - `CreateUserHandler`: Handles user creation requests (POST).
+      - `GetUserHandler`: Handles requests to retrieve a specific user (GET).
+      - `GetUsersHandler`: Handles requests to retrieve all users (GET).
+      - `DeactivateUserHandler`: Handles requests to deactivate a user (DELETE).
+
+### 5. **Explanation of Handlers:**
+
+   - **CreateUserHandler:**
+      - Parses the request payload to extract `Username` and `Email`.
+      - Calls `CreateUser` method of `UserService` to create a new user.
+      - Responds with the created user in JSON format.
+
+   - **GetUserHandler:**
+      - Retrieves the user ID from the request parameters.
+      - Calls `GetUser` method of `UserService` to retrieve the user by ID.
+      - Responds with the user details in JSON format.
+
+   - **GetUsersHandler:**
+      - Calls `GetUsers` method of `UserService` to retrieve all users.
+      - Responds with a list of users in JSON format.
+
+   - **DeactivateUserHandler:**
+      - Retrieves the user ID from the request parameters.
+      - Calls `DeactivateUser` method of `UserService` to deactivate the user.
+      - Responds with a status indicating success (No Content).
+
+### Functionality Overview:
+
+1. **User Creation:**
+   - Users can be created by sending a POST request to `/users` with a JSON payload containing `Username` and `Email`.
+   - The application generates a unique ID for each user.
+
+2. **User Retrieval:**
+   - Users can be retrieved by sending a GET request to `/users/{id}`, where `{id}` is the user's ID.
+   - All users can be retrieved by sending a GET request to `/users`.
+
+3. **User Deactivation:**
+   - Users can be deactivated by sending a DELETE request to `/users/{id}`, where `{id}` is the user's ID.
+   - A background goroutine (`CleanUpInactiveUsers`) periodically deactivates users who have been inactive for a certain duration.
+
+The application demonstrates the use of goroutines and channels for background tasks (cleaning up inactive users) and uses proper synchronization with mutexes to ensure data consistency in concurrent access scenarios.
