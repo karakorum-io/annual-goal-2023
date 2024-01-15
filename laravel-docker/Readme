@@ -1,0 +1,5 @@
+- Automatically setup entire laravel application
+- Step 1
+    - clone the repository
+- Step 2
+    - Run 'make setup' - This command will create the containerd, build them, will create fresh laravel project, will run default migrations and inject seed data.
