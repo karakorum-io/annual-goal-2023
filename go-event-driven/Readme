@@ -1,0 +1,15 @@
+This architecture solves the problem of maintaining consistency and traceability in distributed systems. Event sourcing allows you to capture and store every state change in your system as a sequence of events. This history of events provides a reliable source of truth for the system's current state.
+
+Event streaming, facilitated by the event bus, allows different components of the system to react to events in real-time. This enables a loosely coupled architecture where components can evolve independently. It also provides a mechanism for communication and coordination between different parts of the system.
+
+By combining event sourcing and event streaming, you gain benefits such as:
+
+ - Auditability and Traceability: You can trace back the state of an entity by replaying events, providing a clear audit trail of how and why the state evolved.
+
+ - Decoupling: Components are loosely coupled as they communicate through events, allowing for independent development, scalability, and maintenance.
+
+ - Real-time Reaction: Components can react to events in real-time, enabling dynamic and responsive systems.
+
+ - Fault Tolerance: Event sourcing enables rebuilding state by replaying events, making it easier to recover from failures or migrate to new versions.
+
+This architecture is particularly useful in scenarios where maintaining a reliable history of changes, scalability, and adaptability to evolving requirements are done very frequently.
